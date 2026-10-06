@@ -1,0 +1,91 @@
+productos = [ ]
+
+
+continuar = True
+while continuar:
+    print("\n--- SISTEMA DE GESTIÓN DE PRODUCTOS ---")
+    print("1. Ingresar datos de producto")
+    print("2. Productos registrados")
+    print("3. Busqueda de productos")
+    print("4. Eliminacion de productos")
+    print("5. Salir")
+    
+    opcion = input("Seleccione una opción (1-5): ").strip()
+    
+    if opcion == "1":
+        print("\n--- INGRESO DE NUEVO PRODUCTO ---")
+        
+        
+        while True:
+            nombre = input("Nombre del producto: ").strip()
+            if nombre: 
+                break
+            print("Error: El nombre no puede estar vacío.")
+            
+        
+        while True:
+            categoria = input("Categoría del producto: ").strip()
+            if categoria:
+                break
+            print("Error: La categoría no puede estar vacía.")
+            
+        
+        while True:
+            precio_input = input("Precio (solo números enteros, sin centavos): ").strip()
+            if precio_input.isdigit(): # Verifica que sean solo dígitos
+                precio = int(precio_input)
+                break
+            print("Error: Ingrese un precio válido (número entero positivo).")
+        
+       
+        nuevo_producto = [nombre, categoria, precio]
+        productos.append(nuevo_producto)
+        print(f"\n¡Producto '{nombre}' registrado con éxito!")
+        
+    elif opcion == "2":
+        print("\n--- PRODUCTOS REGISTRADOS ---")
+        if not productos:
+            print("\n--- NO HAY PRODUCTOS REGISTRADOS ---")
+
+        indice = 1 
+        for producto in productos:
+            nombre_productos = producto[0]
+            categoria_productos = producto[1]
+            precio_productos = producto[2]
+        
+            print(f"{indice}. Nombre: {nombre_productos} | Categoría: {categoria_productos} | Precio: ${precio_productos}")
+        
+            indice += 1
+
+    elif opcion == "3":
+        print("\n--- BUSCAR PRODUCTO ---")
+        nombre_buscar = input ("Ingrese el nombre del producto a buscar: ").strip()
+        prod_encontrado = False
+        for producto in productos:
+            if producto[0].lower() == nombre_buscar.lower():
+                print(f"\n¡Su producto fue encontrado! \nNombre: {producto} | Categoría: {producto[1]} | Precio: ${producto[2]}")
+                prod_encontrado = True
+                break
+        if not prod_encontrado:
+            print("\nSu producto no fue encontrado.")   
+
+    elif opcion == "4":
+        print("\n---ELIMINAR PRODUCTO ---")
+        nombre_eliminar = input("Ingrese el nombre del producto a eliminar: ").strip()
+
+        prod_eliminado = False
+        for producto in productos:
+            if producto[0] == nombre_eliminar:
+                productos.remove(producto)
+                print(f"\n¡Producto '{producto[0]}' eliminado con éxito!")
+                prod_eliminado = True
+                break 
+            if not productos:
+                print("\nNo se encontró ningún producto con ese nombre.")
+                
+    elif opcion == "5":
+        print("\nGracias por utilizar el sistema. ¡Hasta luego!")
+        continuar = False
+        
+    else:
+        print("Opción no válida. Por favor, elija 1, 2, 3, 4 o 5.")
